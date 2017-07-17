@@ -1,12 +1,7 @@
-# jetson-trashformers
-
-Repository for the Trashformers NVIDIA Embedded Intern Team!
-
-### Who are the Trashformers?
-The Trashformers are a group of high school summer interns at NVIDIA. The Trashformer is the humanoid robot from Robotis that the team is working with. 
+# Jetson-Trashformers
 
 ### What is this project about?
-The goal of this project is to use neural networks to train the Robotis BiolidGP (named Trashformer by the team) to detect trash and throw it away in trash cans, effectively keeping the office environment clean and free of trash. As of July 12, the Trashformer is able to detect cups on the ground and pick them up. In the coming weeks, the team plans to train the robot to throw away cups in trash cans. 
+The goal of this project is to use neural networks to train the [Robotis BioloidGP](http://en.robotis.com/index/product.php?cate_code=121510) to detect trash and throw it away in trash cans, effectively keeping the office environment clean. 
 
 ### How can I run this project?
 ```
@@ -14,11 +9,29 @@ git clone https://github.com/NVIDIA-Jetson/jetson-trashformers.git
 make
 sh runDetect.sh
 ```
-These three commands will clone the project to the computer so that it can be run and/or edited to the the user's liking, compile the program, and allow the user to run the program to detect cups. 
+These three commands will clone the project to the computer so that it can be run and/or edited to the the user's liking, compile the program, and allow the user to run the program to pick up trash.
 
 ### What is CupNet?
-CupNet is the neural network the Trashformers have created in order to have the robot detect cups. It has been trained on images of white and red cups, as well as false positives to make the model more accurate in recognizing cups. This neural network has been created and trained on [NVIDIA DIGITS](https://developer.nvidia.com/digits) using the Caffe framework. The Trashformers used the help of [Dusty's Jetson Inference tutorial](https://github.com/dusty-nv/jetson-inference) to learn more about using DIGITS and creating their own neural network. 
+CupNet is the neural network that we have created in order to detect cups. It has been trained on images of white and red cups, as well as false positives to make the model more accurate in recognizing cups. This neural network has been created and trained on [NVIDIA DIGITS](https://developer.nvidia.com/digits) using the Caffe framework. We used the help of [Dusty's Jetson Inference tutorial](https://github.com/dusty-nv/jetson-inference) to learn more about using DIGITS and creating their own neural network.
+<!--![DIGITS Graph]-->
 
+### Licensing?
+See 'licenses' folder for more information.
+
+### Libraries?
+See 'lib' folder for the specific files. 
+* libdetectnet-camera.so <!-- Rename with the new name for DetectNet Camera-->
+  * A shared object library with an edited and compiled version of detectnet-camera.cpp from [Dusty's github](https://github.com/dusty-nv/jetson-inference)
+* libdxl_sbc_cpp.so
+  * A shared object library for the [Dynamixel servos](https://github.com/ROBOTIS-GIT/DynamixelSDK).
+* libjetson-inference.so
+  * A shared object library of [Dusty's jetson-inference](https://github.com/dusty-nv/jetson-inference).
+* libzgb.so
+  * A shared object library to control robot commands via [ZigBee](http://support.robotis.com/en/software/zigbee_sdk/zig2serial/linux.htm). 
+
+
+
+<!--
 ### Add jetson-trashformers/lib to your library path
 We will soon figure out a better way to handle these paths. For now, manually add lib via the export command:
 ```
@@ -39,5 +52,5 @@ mv ./libzgb.so ../lib
 
 ### Add libraries from detectnet-camera / jetson-inference
 See the log.md file for instructions on how we got that to work. Imporoved instructions are in the works.
-
+-->
 
