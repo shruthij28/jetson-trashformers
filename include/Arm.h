@@ -29,7 +29,7 @@ class Arm {
             DEFAULT,
             READY,
             GRABBING, 
-            GRAB
+            GRAB,
             STORE
         };
 

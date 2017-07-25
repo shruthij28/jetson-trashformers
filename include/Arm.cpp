@@ -99,7 +99,7 @@ void Arm::SetPose(ArmPose pose) {
             GrabCup();
             break;
         case ArmPose::STORE:
-            SetStorePose()
+            SetStorePose();
             break;
     }
 }
