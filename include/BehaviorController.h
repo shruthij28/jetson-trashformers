@@ -21,8 +21,9 @@ class BehaviorController {
             BEND_DOWN,
             STOP,
             DIAGONAL_DORSAL_LEFT,
-            DIAGONAL_DORSAL_RIGHT
-
+            DIAGONAL_DORSAL_RIGHT,
+            DIAGONAL_FRONTAL_LEFT,
+            DIAGONAL_FRONTAL_RIGHT                
         };
 
 
