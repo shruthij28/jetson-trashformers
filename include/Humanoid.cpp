@@ -118,4 +118,6 @@ void Humanoid::ReleaseCup() {
     arm->SetPose(Arm::ArmPose::STORE);
     sleep(1);
     arm->SetPose(Arm::ArmPose::RELEASE);
+    sleep(1);
+    arm->setPose(Arm::ArmPose::DEFAULT);
 }
