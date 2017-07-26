@@ -45,7 +45,9 @@ void BehaviorController::ChangeState(ControllerState state) {
             break;
         case ControllerState::DIAGONAL_DORSAL_LEFT:
             m_zigb->SendCommand(BUTTON_DIAGONAL_DORSAL_LEFT);
+            break;
         case ControllerState::DIAGONAL_DORSAL_RIGHT:
             m_zigb->SendCommand(BUTTON_DIAGONAL_DORSAL_RIGHT);
+            break;
     }
 }
