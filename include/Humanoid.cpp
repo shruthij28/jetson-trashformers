@@ -24,6 +24,8 @@ void Humanoid::UseKeyboard(){
 void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
 
     detectnetController->SortBBArrayByTargetDistance();
+    
+    float classID = detectnetController->bbArraySorted[0][4];
     float xError = detectnetController->GetErrorXOfTargetBB();
     float bbArea = detectnetController->GetAreaOfTargetBB(); 
 
@@ -37,6 +39,13 @@ void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
             GrabVerticalCup();
             behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
             grab = false; 
+            drop = true;
+        } else if(drop) {
+            printf("DROP CUP\n");
+            behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_DORSAL_LEFT);
+        } else if(release) {
+            printf("RELEASING CUP\n");
+            release = false;
         }
         else {
            printf("STOP\n"); 
@@ -62,10 +71,19 @@ void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
         printf("GRAB: NO CUP\n");
     }
     else if( detectnetController->GetCenterYFromBB(detectnetController->bbArraySorted[0]) > ((2.0/3.0) * detectnetController->GetCameraHeight()) ){
-        grab = true; 
-        printf("GRAB: TRUE\n");
-        printf("CENTER Y of BB: %f\n", detectnetController->GetCenterYFromBB(detectnetController->bbArraySorted[0]) );
-        printf("image threshold: %f\n", ((2.0/3.0) * detectnetController->GetCameraHeight()) );
+        printf("CLASS ID: %f\n", classID);
+        if(classID == 1 && drop) { //class ID of trashcan
+            drop = false;
+            release = true;
+            printf("RELEASE: TRUE\n");
+            printf("CENTER Y of BB: %f\n", detectnetController->GetCenterYFromBB(detectnetController->bbArraySorted[0]) );  
+            printf("image threshold: %f\n", ((2.0/3.0) * detectnetController->GetCameraHeight()) );  
+        } else if(classID == 0 && !drop) {
+            grab = true; 
+            printf("GRAB: TRUE\n");
+            printf("CENTER Y of BB: %f\n", detectnetController->GetCenterYFromBB(detectnetController->bbArraySorted[0]) );
+            printf("image threshold: %f\n", ((2.0/3.0) * detectnetController->GetCameraHeight()) );
+        } 
     }
     else {
         grab = false; 
@@ -87,4 +105,10 @@ void Humanoid::GrabVerticalCup() {
     arm->SetPose(Arm::ArmPose::GRAB);
     sleep(2);
     arm->SetPose(Arm::ArmPose::STORE);
+}
+
+void Humanoid::ReleaseCup() {
+    arm->SetPose(Arm::ArmPose::STORE);
+    sleep(1);
+    arm->SetPose(Arm::ArmPose::RELEASE);
 }
