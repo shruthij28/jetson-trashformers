@@ -24,10 +24,15 @@ void Humanoid::UseKeyboard(){
 void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
 
     detectnetController->SortBBArrayByTargetDistance();
-    
-    float classID = detectnetController->bbArraySorted[0][4];
+   
     float xError = detectnetController->GetErrorXOfTargetBB();
     float bbArea = detectnetController->GetAreaOfTargetBB(); 
+    float classID = -1;
+
+    if(bbArea!= -1) {
+        classID = detectnetController->bbArraySorted[0][4];
+    }
+        
 
     if(bbArea == -1) {
         if(grab){
