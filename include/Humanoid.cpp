@@ -48,8 +48,10 @@ void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
         } else if(drop) {
             printf("DROP CUP\n");
             behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_DORSAL_LEFT);
+            behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
         } else if(release) {
             printf("RELEASING CUP\n");
+            ReleaseCup();
             release = false;
         }
         else {
