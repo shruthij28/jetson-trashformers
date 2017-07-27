@@ -38,6 +38,8 @@ void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
         if(grab){
             behaviorController->ChangeState(BehaviorController::ControllerState::WALK_FORWARD);
             behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
+            behaviorController->ChangeState(BehaviorController::ControllerState::WALK_FORWARD);
+            behaviorController->ChangeState(BehaviorController::ControllerState::STOP);             
             behaviorController->ChangeState(BehaviorController::ControllerState::STRAFE_LEFT);
             printf("BEND DOWN\n"); 
             sleep(1);
@@ -47,8 +49,12 @@ void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
             drop = true;
         } else if(drop) {
             printf("DROP CUP\n");
-            behaviorController->ChangeState(BehaviorController::ControllerState::STRAFE_LEFT_FAST);
+            behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_FRONTAL_LEFT);
             behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
+            sleep(1);
+            behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_DORSAL_RIGHT);
+            behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
+            sleep(1);
         } else if(release) {
             printf("RELEASING CUP\n");
             ReleaseCup();
