@@ -55,5 +55,11 @@ void BehaviorController::ChangeState(ControllerState state) {
         case ControllerState::DIAGONAL_FRONTAL_RIGHT:
             m_zigb->SendCommand(BUTTON_DIAGONAL_FRONTAL_RIGHT);
             break;  
+        case ControllerState::STRAFE_LEFT_FAST:
+            m_zigb->SendCommand(BUTTON_SIDESTEP_FAST_LEFT);
+            break;
+        case ControllerState::STRAFE_RIGHT_FAST:
+            m_zigb->SendCommand(BUTTON_SIDESTEP_FAST_RIGHT);
+            break;
   }
 }

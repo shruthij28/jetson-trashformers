@@ -23,7 +23,9 @@ class BehaviorController {
             DIAGONAL_DORSAL_LEFT,
             DIAGONAL_DORSAL_RIGHT,
             DIAGONAL_FRONTAL_LEFT,
-            DIAGONAL_FRONTAL_RIGHT                
+            DIAGONAL_FRONTAL_RIGHT,
+            STRAFE_LEFT_FAST,
+            STRAFE_RIGHT_FAST
         };
 
 
