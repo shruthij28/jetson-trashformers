@@ -20,8 +20,44 @@ void Humanoid::UseKeyboard(){
     keyboardController->Init();
     keyboardController->RunInput();
 }
+
+
+void Humanoid::UpdateState() {
+    
+    detectnetController->SetDetectNetLoopLock(true);
+    while(detectnetController->GetDetectNetLoopLock()){}
+    
+    detectnetController->SortBBArrayByTargetDistance();
+   
+    float xError = detectnetController->GetErrorXOfTargetBB();
+    float bbArea = detectnetController->GetAreaOfTargetBB(); 
+    DetectNetController::ClassID classID = detectnetController->ConvertIntToClassID(-1);
+    
+    if(bbArea!= -1) {
+        classID = detectnetController->GetClassIDFromSortedBB(TARGET_BB_IN_SORTED_ARRAY); 
+    }
+
+    
+    switch(humanoidState) {
+        default:
+        case SEARCHING:
+            //insert here
+            break;
+        case POSITIONING:
+            //insert here
+            break;
+        case GRABBING:
+            //insert here
+            break;
+        case RELEASING:
+            //insert here
+            break;
+    }
+
+}
+
         
-void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
+/*void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
     
     detectnetController->SetDetectNetLoopLock(true);
     while(detectnetController->GetDetectNetLoopLock()){}
@@ -116,4 +152,4 @@ void Humanoid::ReleaseCup() {
     arm->SetPose(Arm::ArmPose::RELEASE);
     sleep(1);
     arm->SetPose(Arm::ArmPose::DEFAULT);
-}
+}*/
