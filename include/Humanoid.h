@@ -23,7 +23,7 @@ class Humanoid {
             POSITIONING,
             GRABBING,
             RELEASING
-        }
+        };
 
         double GetCupCenterY();
         double GetCupCenterX();
