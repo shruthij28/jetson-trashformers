@@ -10,6 +10,7 @@ Humanoid::Humanoid(int camPort, std::string model) { //CONSTRUCTOR
     arm = new Arm(serialHandler);
     detectnetController = new DetectNetController(camPort, model);
     keyboardController = new KeyboardController(zigb);
+    classID = DetectNetController::ClassID::CUP;    
 }
 
 Humanoid::~Humanoid() {
@@ -31,11 +32,7 @@ void Humanoid::UpdateState() {
    
     float xError = detectnetController->GetErrorXOfTargetBB();
     float bbArea = detectnetController->GetAreaOfTargetBB(); 
-    DetectNetController::ClassID classID = detectnetController->ConvertIntToClassID(-1);
-    
-    if(bbArea!= -1) {
-        classID = detectnetController->GetClassIDFromSortedBB(TARGET_BB_IN_SORTED_ARRAY); 
-    }
+    //DetectNetController::ClassID classID = detectnetController->ConvertIntToClassID(-1);
 
     
     switch(humanoidState) {
@@ -66,12 +63,14 @@ bool Humanoid::Searching() {
     behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_DORSAL_RIGHT);
     behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
     sleep(1);
-    
+   
+    detectnetController->SortBBArrayByTargetDistance();
+ 
     DetectNetController::ClassID classFound = detectnetController->ConvertIntToClassID(-1);
     if(detectnetController->GetAreaOfTargetBB() != -1) {
         classFound = detectnetController->GetClassIDFromSortedBB(TARGET_BB_IN_SORTED_ARRAY);
     }
-
+    printf("Found class: %i\n", classFound == classID);
     return (classFound == classID);
 }
 
