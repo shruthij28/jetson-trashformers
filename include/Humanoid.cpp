@@ -41,7 +41,9 @@ void Humanoid::UpdateState() {
     switch(humanoidState) {
         default:
         case Humanoid::HumanoidState::SEARCHING:
-            //insert here
+            if(Searching()) {
+                humanoidState = HumanoidState::POSITIONING;
+            }
             break;
         case Humanoid::HumanoidState::POSITIONING:
             //insert here
@@ -56,7 +58,24 @@ void Humanoid::UpdateState() {
 
 }
 
-        
+
+bool Humanoid::Searching() {
+    behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_FRONTAL_LEFT);
+    behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
+    sleep(1);
+    behaviorController->ChangeState(BehaviorController::ControllerState::DIAGONAL_DORSAL_RIGHT);
+    behaviorController->ChangeState(BehaviorController::ControllerState::STOP);
+    sleep(1);
+    
+    DetectNetController::ClassID classFound = detectnetController->ConvertIntToClassID(-1);
+    if(detectnetController->GetAreaOfTargetBB() != -1) {
+        classFound = detectnetController->GetClassIDFromSortedBB(TARGET_BB_IN_SORTED_ARRAY);
+    }
+
+    return (classFound == classID);
+}
+
+ 
 /*void Humanoid::UpdateState(int xReactionTolerance, int areaTolerance) {
     
     detectnetController->SetDetectNetLoopLock(true);
