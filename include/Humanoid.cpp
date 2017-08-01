@@ -41,6 +41,10 @@ void Humanoid::UpdateState() {
             break;
         case Humanoid::HumanoidState::POSITIONING:
             printf("STATE: POSITIONING\n");
+            if(!detectnetController->IsCurrentCamBottomCam() && lowFrame) {
+                detectnetController->SwitchCameras();
+               // humanoidState = HumanoidState::SEARCHING;
+            }
             if(targetClassID == DetectNetController::ClassID::CUP){
                 Position((1.0/4.0) * detectnetController->GetCameraWidth());
             } else if(targetClassID == DetectNetController::ClassID::TRASHCAN){
@@ -153,10 +157,12 @@ void Humanoid::Turn(int sleepTime){
         
 bool Humanoid::Searching() {
     Turn(1);
-
+    bool found;
     if(detectnetController->ConvertIntToClassID(detectnetController->GetTargetBB(targetClassID)[4]) == DetectNetController::ClassID::UNKNOWN){
-       return false; 
+       found = false;
+       detectnetController->SwitchCameras();
     } else {
-       return true;
+       found = true;
     }
+    return found;
 }
