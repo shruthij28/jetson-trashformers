@@ -5,7 +5,7 @@
 #include <thread>
 
 #define DEFAULT_BOTTOM_CAMERA_PORT 1
-#define DEFAULT_TOP_CAMERA_PORT 2
+#define DEFAULT_TOP_CAMERA_PORT 0
 std::string DEFAULT_MODEL ("84");
 
 int main (int argc, char** argv){
