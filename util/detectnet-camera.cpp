@@ -114,7 +114,7 @@ bool isCurrentCamBottomCam(){
         return false;
     }
 
-    return camera == camera1;
+    return camera != camera1;
 }
 
 int main(int argc, char** argv){
