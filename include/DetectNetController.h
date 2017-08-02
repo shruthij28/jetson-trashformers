@@ -68,6 +68,7 @@ class DetectNetController {
         std::array<float, 5> GetTargetBB(DetectNetController::ClassID classID);
         
         float GetAreaOfTargetBB();
+        float GetAreaOfTargetBB(DetectNetController::ClassID classID);
         float GetErrorXOfTargetBB();
         float GetErrorXOfTargetBB(float offset);
         float GetErrorYOfTargetBB();
